@@ -1,0 +1,12 @@
+<div class="post">
+  <div class="post-head">
+    <div class="head">
+      <%= link_to post.user.username, "/" %>
+      <div class="image center-block">
+        <%= link_to image_tag(post.image.url(:medium), border: 0), post_path(post), { class: "img-responsive "}%>
+        <div class="text-left"><%= post.caption %></div>
+      </div>
+    </div>
+  </div>
+</div>
+
