@@ -11,7 +11,17 @@
 <%= will_paginate %>
 
 <ul class="users">
-  <%= render @users %>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Privilege</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <%= render @users %>
+  </table>
 </ul>
 
 <%= will_paginate %>

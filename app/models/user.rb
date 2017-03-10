@@ -17,7 +17,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, :if => :password
   validates :privilege, :inclusion => { :in => PRIVILEGE_OPTIONS }
   # Only allow letter, number, underscore and punctuation.
-  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
+  # validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 
   def validate_username
     if User.where(email: username).exists?

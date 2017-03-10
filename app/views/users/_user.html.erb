@@ -1,7 +1,20 @@
-<li>
-  <%= link_to user.username, user %>
 
-  <% if is_admin? && !current_user?(user) %>
-      <div><%= render 'deactivateuserform', user: user%> </div>
-  <% end %>
-</li>
+<tbody>
+<tr>
+  <td>
+    <%= link_to user.username, user %>
+  </td>
+  <td>
+    <%= user.email %>
+  </td>
+  <td>
+    <%= user.privilege %>
+  </td>
+  <td>
+    <% if is_admin? && !current_user?(user) %>
+        <%= render 'deactivateuserform', user: user%>
+    <% end %>
+  </td>
+</tr>
+</tbody>
+
