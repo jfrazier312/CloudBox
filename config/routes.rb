@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :posts
+  resources :sessions
 
   #Login and Sessions routes
   get   '/login',   to: 'sessions#new'      #Describes the login screen

@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.all.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /users/1
@@ -39,7 +39,19 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    @user.update(user_params)
+
+    if user_params[:password].blank? && !current_user?(@user)
+      user_params.delete(:password)
+      user_params.delete(:password_confirmation)
+    end
+
+    if @user.update_attributes(user_params)
+      flash[:success] = "User updated successfully"
+      redirect_to @user
+    else
+      flash[:danger] = "Unable to edit user"
+      render 'edit'
+    end
   end
 
   # DELETE /users/1
@@ -50,13 +62,13 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.fetch(:user, {}).permit(:username, :email, :password, :password_confirmation, :privilege)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.fetch(:user, {}).permit(:username, :email, :password, :password_confirmation, :privilege)
+  end
 end

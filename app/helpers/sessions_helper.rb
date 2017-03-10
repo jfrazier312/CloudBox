@@ -60,7 +60,7 @@ module SessionsHelper
 
   # Confirms logged-in user
   def check_logged_in_user
-    unless logged_in? && current_user.status_approved?
+    unless logged_in?
       store_location
       flash[:danger] = "Login is required to access page."
       redirect_to login_url and return
