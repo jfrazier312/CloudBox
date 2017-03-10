@@ -2,11 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 /* CUSTOM INSTA */
+//
+/* CUSTOM INSTA */
+
 
 body {
   background-color: #fafafa;
   font-family: proxima-nova, 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
+
+//.navbar-brand {
+//  color: #125688;
+//}
 
 .navbar-brand {
   a {
@@ -23,7 +30,8 @@ body {
 }
 
 .navbar-container {
-  width: 640px;
+  width: 100%;
+  //width: 640px;
   margin: 0 auto;
 }
 
@@ -79,3 +87,4 @@ body {
   margin-top: 20px;
   margin-bottom: 40px;
 }
+
