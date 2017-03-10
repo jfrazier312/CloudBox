@@ -4,14 +4,12 @@
   <h1>Users</h1>
 </div>
 
-<div><% if is_admin? %>
-      <%= link_to "Create New Account", new_user_path, :class => "btn btn-primary" %>
-  <% end %></div>
+
 
 <%= will_paginate %>
 
 <ul class="users">
-  <table class="table table-striped">
+  <table class="table table-bordered table-hover">
     <thead>
     <tr>
       <th>Username</th>
@@ -20,8 +18,16 @@
       <th>Delete</th>
     </tr>
     </thead>
-    <%= render @users %>
+    <tbody>
+       <%= render @users %>
+    </tbody>
   </table>
 </ul>
 
 <%= will_paginate %>
+
+<div class="row">
+  <% if is_admin? %>
+      <%= link_to "Create New Account", new_user_path, :class => "btn btn-primary" %>
+  <% end %>
+</div>
