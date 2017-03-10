@@ -16,18 +16,26 @@ end
 
 8.times do |n|
 
+ # arr = %w[img_00 img_01 img_02]
+
   username = Faker::Name.name
   email = "example-#{n+1}@example.com"
   password = "password"
 
   user =  User.create!(username: username,
                        email: email,
-                       password: password
+                       password: password,
+                       password_confirmation: password
   );
 
   Post.create!(
+      #image: seed_image(arr.sample),
       image: seed_image("img_0#{n}"),
+
       caption: Faker::Lorem.paragraph(2, true, 1),
       user_id: user.id
   );
 end
+
+User.create!(username: 'admin', email: 'admin123@email.com', password: 'password', password_confirmation: 'password')
+User.create!(username: 'regular', email: 'regular123@email.com', password: 'password', password_confirmation: 'password')
