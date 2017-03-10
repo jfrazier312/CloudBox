@@ -12,7 +12,7 @@
   </td>
   <td>
     <% if is_admin? && !current_user?(user) %>
-        <%= render 'deactivateuserform', user: user%>
+        <%= render 'deactivateuserform', user: user %>
     <% end %>
   </td>
 </tr>
