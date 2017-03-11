@@ -12,9 +12,17 @@
 # the additional setup, and require it from the spec files that actually need
 # it.
 #
+
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+
 # The `.rspec` file also contains a few flags that are not defaults but that
 # users commonly want.
 
+# Requires supporting ruby files with custom matchers and macros, etc,
+# in spec/support/ and its subdirectories.
+ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration

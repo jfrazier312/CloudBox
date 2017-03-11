@@ -74,7 +74,7 @@ module SessionsHelper
     end
   end
 
-  # Confirms correct user, otherwise redirect to homepage BUT ADMIN/MANAGER PRIVS OVERRIDES
+  # Confirms correct user
   def check_current_user
     @user = User.find(params[:id])
     redirect_to(root_url) unless current_user?(@user)

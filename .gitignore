@@ -15,3 +15,9 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+
+# ignoring public assets..? and idea.workspace?
+.idea
+/public/assets
+
