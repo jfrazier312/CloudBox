@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: DropBox_production
-  username: DropBox
+  username: project_name
   password: <%= ENV['DROPBOX_DATABASE_PASSWORD'] %>
