@@ -1,6 +1,7 @@
 require 'rails_helper.rb'
 require 'helpers/spec_test_helpers.rb'
 
+# TODO Figure out how to simulate confirmation dialog
 feature 'User deleting posts' do
 
   context 'Regular user is deleting posts' do
@@ -11,50 +12,34 @@ feature 'User deleting posts' do
     scenario 'User deletes own post successfully' do
       post_one = FactoryGirl.create(:post, caption: "I need to delete this!", user: @user)
       visit post_path(post_one.id)
-      find_link('Delete post').click
-      expect(page).to have_current_path edit_post_path(post_one.id)
-      fill_in 'Caption', with: 'Edited Caption'
-      click_button('Submit')
-      expect(page).to have_content 'Post updated'
-      expect(page).to have_content 'Edited Caption'
+      expect(page).to have_content 'Delete Post'
     end
 
-    scenario 'User cannot edit non owned post' do
+    scenario 'User cannot delete non owned post' do
       post_one = FactoryGirl.create(:post, caption: "caption", user: FactoryGirl.create(:user, username: Faker::Name.name))
       visit post_path(post_one.id)
       expect(page).to have_current_path post_path(post_one.id)
-      expect(page).not_to have_selector(:link_or_button, 'Edit')
-      visit edit_post_path(post_one.id)
-      expect(page).to have_content 'Cannot alter this post'
+      expect(page).not_to have_selector(:link_or_button, 'Delete post')
     end
   end
 
-  context 'Admin user is editing posts' do
+  context 'Admin user is deleting posts' do
     before :each do
       login(:user_admin)
     end
 
-    scenario 'admin edits own post successfully' do
-      post_one = FactoryGirl.create(:post, caption: "I need to edit this!", user: @user)
+    scenario 'admin delete own post successfully' do
+      post_one = FactoryGirl.create(:post, caption: "I need to delete this!", user: @user)
       visit post_path(post_one.id)
-      expect(page).to have_content 'I need to edit this!'
-      find_link('Edit').click
-      expect(page).to have_current_path edit_post_path(post_one.id)
-      fill_in 'Caption', with: 'Edited Caption'
-      click_button('Submit')
-      expect(page).to have_content 'Post updated'
-      expect(page).to have_content 'Edited Caption'
+      expect(page).to have_content 'I need to delete this!'
+      find_link('Delete Post').click
     end
 
-    scenario 'Admin can edit non owned post' do
+    scenario 'Admin can delete non owned post' do
       post_one = FactoryGirl.create(:post, caption: "caption", user: FactoryGirl.create(:user, username: Faker::Name.name))
       visit post_path(post_one.id)
       expect(page).to have_current_path post_path(post_one.id)
-      find_link('Edit').click
-      fill_in 'Caption', with: 'Edited Caption'
-      click_button('Submit')
-      expect(page).to have_content 'Post updated'
-      expect(page).to have_content 'Edited Caption'
+      find_link('Delete Post').click
     end
   end
 

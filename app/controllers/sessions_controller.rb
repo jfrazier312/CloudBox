@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.where(username: params[:session][:username].downcase).take
+    user = User.where(username: params[:session][:username]).take
     if user && user.authenticate(params[:session][:password])
       # Log in and redirect to the user profile page
       log_in user

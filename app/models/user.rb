@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   # Validations:
-  validates :username, presence: true, length: { minimum: 4, maximum: 30 }, uniqueness: { case_sensitive: false }
+  validates :username, presence: true, length: { minimum: 4, maximum: 50 }, uniqueness: { case_sensitive: false }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }, :if => :password
   validates :privilege, :inclusion => { :in => PRIVILEGE_OPTIONS }

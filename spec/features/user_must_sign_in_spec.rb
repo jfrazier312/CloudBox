@@ -33,5 +33,4 @@ feature 'user cannot access features without logging in' do
       expect(page).to have_content 'Login is required to access page'
     end
   end
-
 end
