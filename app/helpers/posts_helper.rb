@@ -8,7 +8,7 @@ module PostsHelper
   end
 
   def current_user_owns_post?
-    current_user == Post.find(params[:id]).user
+    current_user == Post.find(params[:id]).user || current_user.privilege_admin?
   end
 
 end

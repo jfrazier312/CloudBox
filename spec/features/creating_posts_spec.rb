@@ -14,11 +14,6 @@ RSpec.describe "Creating Posts Feature Test", :type => :feature do
     end
   end
 
-  def visit_new_post
-    visit '/'
-    find_link('New Post').click
-  end
-
   it 'can create a post' do
     visit_new_post
     attach_file('Image', "app/assets/images/img_00.jpg")
@@ -43,5 +38,11 @@ RSpec.describe "Creating Posts Feature Test", :type => :feature do
     expect(page).to have_css("img[src*='img_00.jpg']")
   end
 
+end
 
+private
+
+def visit_new_post
+  visit '/'
+  find_link('New Post').click
 end

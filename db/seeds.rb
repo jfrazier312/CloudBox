@@ -37,5 +37,5 @@ end
   );
 end
 
-User.create!(username: 'admin', email: 'admin123@email.com', password: 'password', password_confirmation: 'password')
+User.create!(username: 'admin', email: 'admin123@email.com', password: 'password', password_confirmation: 'password', privilege: 'admin')
 User.create!(username: 'regular', email: 'regular123@email.com', password: 'password', password_confirmation: 'password')
