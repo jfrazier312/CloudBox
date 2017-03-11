@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   # include Renderable
 
   include SessionsHelper
+  include PostsHelper
   # include RequestsHelper
   # include ItemsHelper
 end

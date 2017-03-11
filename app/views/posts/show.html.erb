@@ -1,5 +1,8 @@
 <%= render @post %>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Home', posts_path %> |
-<%= link_to 'Delete Post', post_path(@post), method: :delete, data: { confirm: "Are you sure you want to delete?" } %>
+<% if current_user_owns_post? %>
+    <%= link_to 'Edit', edit_post_path(@post) %> |
+    <%= link_to 'Delete Post', post_path(@post), method: :delete, data: { confirm: "Are you sure you want to delete?" } %> |
+<% end %>
+
+<%= link_to 'Home', posts_path %>

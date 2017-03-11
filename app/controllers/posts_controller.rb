@@ -2,6 +2,7 @@ class PostsController < ApplicationController
 
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :check_logged_in_user
+  before_action :check_post_is_mine_or_admin, only: [:edit, :update, :destroy]
 
   def new
     @post = current_user.posts.build
@@ -34,13 +35,13 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = current_user.posts.build(post_params)
+    # @post = current_user.posts.build(post_params)
 
-    if @post.update(post_params)
+    if @post.update_attributes(post_params)
       redirect_to @post
       flash[:success] = "Post updated"
     else
-      flash.now[:alert] = "Unable to edit post"
+      flash.now[:danger] = "Unable to edit post"
       render :edit
     end
   end
@@ -50,7 +51,7 @@ class PostsController < ApplicationController
       redirect_to posts_path
       flash[:success] = "Post Deleted"
     else
-      flash.now[:alert] = "Cannot delete post"
+      flash.now[:danger] = "Cannot delete post"
       render @post
     end
   end

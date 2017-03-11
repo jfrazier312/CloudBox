@@ -21,7 +21,6 @@ feature 'user cannot access features without logging in' do
     end
   end
 
-
   context 'user controller actions' do
     scenario 'user visits users index' do
       visit users_path
