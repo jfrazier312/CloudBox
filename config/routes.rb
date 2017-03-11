@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :users
-  resources :posts
+  resources :posts do
+    resources :comments
+  end
   resources :sessions
 
   #Login and Sessions routes

@@ -1,15 +1,26 @@
 <div class="posts-wrapper row">
   <div class="post">
     <div class="post-head">
-      <div class="name">
+      <div class="thumb-img user-name">
         <%= link_to post.user.username, post.user %>
       </div>
     </div>
     <div class="image center-block">
       <%= link_to image_tag(post.image.url(:medium), border: 0), post_path(post), { class: "img-responsive "}%>
     </div>
-    <div class="caption">
-      <%= post.caption %>
+    <div class="post-bottom">
+      <div class="caption">
+        <div class="user-name">
+          <%= post.user.username %>
+        </div>
+        <%= post.caption %>
+      </div>
+      <% if post.comments %>
+          <%= render post.comments, post: post %>
+          <%= render 'comments/comment_form', post: post %>
+    <% else %>
+          <%= render 'comments/comment_form', post: post %>
+      <% end %>
     </div>
   </div>
 </div>

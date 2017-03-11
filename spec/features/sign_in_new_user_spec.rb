@@ -23,4 +23,20 @@ feature 'Create a new account' do
     expect(page).to have_content('regular')
   end
 
+
+  context 'Logging out' do
+    skip "Can't figure out drop downs yet" do
+      scenario 'user logs out successfully' do
+        login(:user_admin)
+        visit posts_path
+        find('.dropdown-menu', visible: :all)
+        find('.dropdown-menu.li', text: 'Log out', visible: :all).click
+        expect(page). to have_current_path root_path
+        expect(page).to have_content 'Sign up | Log in'
+        # find_link('Log out', visible: :all).select_option
+
+      end
+    end
+  end
+
 end

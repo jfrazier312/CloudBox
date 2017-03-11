@@ -1,0 +1,11 @@
+<div class="comment-like-form row">
+  <div class="like-button col-sm-1">
+    <span class="glyphicon glyphicon-heart-empty")></span>
+  </div>
+
+  <div class="comment-form col-sm-11">
+    <%= simple_form_for [post, post.comments.new] do |f| %>
+        <%= f.text_field :content, placeholder: "Add a comment..." %>
+    <% end %>
+  </div>
+</div>
