@@ -5,6 +5,13 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# Pry
+gem 'pry-rails', :group => :development
+#gem 'pry-debugger', :group => :development
+#gem 'selenium-webdriver', '2.53.4'
+#gem 'selenium-webdriver'
+
+
 # Paperclip for image uploading
 gem "paperclip", "~> 5.0.0"
 

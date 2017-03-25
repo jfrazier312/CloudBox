@@ -24,10 +24,18 @@ require 'rspec/rails'
 # in spec/support/ and its subdirectories.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
+# Capybara.register_driver :chrome do |app|
+#   Capybara::Selenium::Driver.new(app, :browser => :chrome)
+# end
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
+  # Capybara.register_driver :chrome do |app|
+  #   Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  # end
+
+  # Capybara.javascript_driver = :chrome
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
