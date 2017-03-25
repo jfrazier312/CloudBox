@@ -10,10 +10,12 @@
   <%= @user.email %>
 </p>
 
-<p>
-  <strong>Privilege:</strong>
-  <%= @user.privilege %>
-</p>
+<% if is_admin? %>
+    <p>
+      <strong>Privilege:</strong>
+      <%= @user.privilege %>
+    </p>
+<% end %>
 
 
 <%= render @posts %>

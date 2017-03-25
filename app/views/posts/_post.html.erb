@@ -1,8 +1,13 @@
-<div class="posts-wrapper row">
+<div class="posts-wrapper">
   <div class="post">
     <div class="post-head">
-      <div class="thumb-img user-name">
+      <div class=thumb-img">
+      </div>
+      <div class="user-name">
         <%= link_to post.user.username, post.user %>
+      </div>
+      <div class="time-ago">
+        <%= time_ago_in_words post.created_at %>
       </div>
     </div>
     <div class="image center-block">
@@ -10,17 +15,22 @@
     </div>
     <div class="post-bottom">
       <div class="caption">
-        <div class="user-name">
-          <%= post.user.username %>
+        <div class="caption-content">
+          <div class="user-name">
+            <%= post.user.username %>
+          </div>
+          <%= post.caption %>
         </div>
-        <%= post.caption %>
+
+        <div class="comments" id="comments_<%=post.id%>">
+          <% if post.comments %>
+              <%= render post.comments, post: post %>
+          <% end %>
+        </div>
       </div>
-      <% if post.comments %>
-          <%= render post.comments, post: post %>
-          <%= render 'comments/comment_form', post: post %>
-    <% else %>
-          <%= render 'comments/comment_form', post: post %>
-      <% end %>
+
+      <%= render 'comments/comment_form', post: post %>
+
     </div>
   </div>
 </div>

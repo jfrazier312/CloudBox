@@ -11,4 +11,5 @@ class Post < ApplicationRecord
   validates :user_id, presence: true
   validates :image, presence: true
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+  validates :caption, length: { maximum: 50 }
 end

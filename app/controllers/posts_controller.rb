@@ -9,9 +9,6 @@ class PostsController < ApplicationController
   end
 
   def index
-    unless logged_in?
-      redirect_to root_path
-    end
     @posts = Post.paginate(page: params[:page], per_page: 10)
   end
 
@@ -34,8 +31,6 @@ class PostsController < ApplicationController
   end
 
   def update
-    # @post = current_user.posts.build(post_params)
-
     if @post.update_attributes(post_params)
       redirect_to @post
       flash[:success] = "Post updated"

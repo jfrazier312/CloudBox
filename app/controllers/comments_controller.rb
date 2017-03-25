@@ -12,24 +12,26 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
 
     if @comment.save
-      flash[:success] = "Created comment"
-      redirect_to :back
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.js
+      end
     else
       flash.now[:danger] = "Cannot create comment"
-      render posts_path
+      render root_path
     end
   end
 
   def destroy
     @comment = @post.comments.find(params[:id])
-    post = @post
 
-    if Comment.destroy(@comment)
-      flash[:success] = "Comment deleted"
-      redirect_to post_path(post)
-    else
-      flash[:danger] = "Cannot delete comment"
-      redirect_to post_path(post)
+    # if Comment.destroy(@comment)
+    if comment_is_mine?(@comment)
+      @comment.delete
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.js
+      end
     end
   end
 
