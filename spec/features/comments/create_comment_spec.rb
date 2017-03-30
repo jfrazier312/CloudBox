@@ -4,27 +4,27 @@ require 'pry';
 
 
 RSpec.describe "Creating Comments Feature Test", :type => :feature do
+  context "Admin user creates comment on post" do
+    before :each do
+      login(:user_admin)
+      @post = FactoryGirl.create(:post)
+    end
 
-  before :each do
-    login(:user_admin)
-    @post = FactoryGirl.create(:post)
-  end
+    after :each do |example|
+      unless example.metadata[:skip_after]
+        User.destroy(@user.id)
+        Post.destroy(@post.id)
+      end
+    end
 
-  after :each do |example|
-    unless example.metadata[:skip_after]
-      User.destroy(@user.id)
-      Post.destroy(@post.id)
+    it 'creates a comment on post', js: true do
+      visit post_path(@post.id)
+      comment_string = "my first comment"
+      find("#comment_content_#{@post.id}").set(comment_string + "\n")
+      expect(page).to have_content(comment_string)
+      expect(page).to have_css(".user-name", @user.username)
     end
   end
-
-  it 'creates a comment on post', js: true do
-    visit post_path(@post.id)
-    comment_string = "my first comment"
-    find("#comment_content_#{@post.id}").set(comment_string + "\n")
-    expect(page).to have_content(comment_string)
-    expect(page).to have_css(".user-name", @user.username)
-  end
-
 end
 
 private
