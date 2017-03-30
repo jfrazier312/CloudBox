@@ -25,7 +25,6 @@ class CommentsController < ApplicationController
   def destroy
     @comment = @post.comments.find(params[:id])
 
-    # if Comment.destroy(@comment)
     if comment_is_mine?(@comment)
       @comment.delete
       respond_to do |format|
@@ -49,4 +48,5 @@ class CommentsController < ApplicationController
   def set_comment
     @comment = Comment.find(params[:id])
   end
+
 end

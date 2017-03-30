@@ -5,7 +5,7 @@ require 'pry';
 feature 'Deleting comments' do
   background do
     user = create :user_regular
-    user_two = create(:user_regular, id: 2)
+    user_two = create(:user_regular)
 
     @post = create :post
 

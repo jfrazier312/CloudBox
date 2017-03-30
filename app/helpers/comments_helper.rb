@@ -4,4 +4,9 @@ module CommentsHelper
     comment.user_id == current_user.id
   end
 
+  def check_comment_owner(comment)
+    comment.user.id == current_user.id
+  end
+
+
 end
