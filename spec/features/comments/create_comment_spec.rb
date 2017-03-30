@@ -16,17 +16,13 @@ RSpec.describe "Creating Comments Feature Test", :type => :feature do
       Post.destroy(@post.id)
     end
   end
-  #
-  it 'creates a comment on post' do
+
+  it 'creates a comment on post', js: true do
     visit post_path(@post.id)
     comment_string = "my first comment"
-    fill_in("comment_content_#{@post.id}", with: comment_string)
-    binding.pry
-    
-    click_button 'New Comment'
-
+    find("#comment_content_#{@post.id}").set(comment_string + "\n")
     expect(page).to have_content(comment_string)
-    expect(page).to have_css("user-name", @user.username)
+    expect(page).to have_css(".user-name", @user.username)
   end
 
 end

@@ -21,6 +21,10 @@ feature 'Deleting comments' do
     login_as(user_two)
   end
 
+  after :each do
+    DatabaseCleaner.clean
+  end
+
   scenario 'user can delete their own comments' do
     visit post_path(@post)
 

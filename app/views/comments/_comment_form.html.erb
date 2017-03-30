@@ -6,7 +6,7 @@
   <div class="comment-form col-sm-11">
     <%= simple_form_for [post, post.comments.new], remote: true do |f| %>
         <%= f.text_field :content, placeholder: "Add a comment...", class:"comment_content", id: "comment_content_#{post.id}" %>
-        <%= f.submit 'New Comment', class: 'comment-submit-button' %>
+        <!--<%= f.submit 'New Comment', class: 'comment-submit-button' %>-->
     <% end %>
   </div>
 </div>
