@@ -8,7 +8,7 @@ html {
 .registration-bg {
   padding-top: 4em;
   height: 100%;
-  background-image: image-url('regbackg.jpg');
+  background-image: image-url('mountain_background.jpg');
   -moz-background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
@@ -30,4 +30,22 @@ html {
   h1 {
     text-align: center;
   }
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.alert {
+  margin-bottom: 0px;
+}
+
+.login-bg {
+  padding-top: 4em;
+  height: 100%;
+  background-image: image-url('loginbg.jpg');
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }

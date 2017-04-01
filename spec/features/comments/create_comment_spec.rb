@@ -24,6 +24,7 @@ RSpec.describe "Creating Comments Feature Test", :type => :feature do
       expect(page).to have_content(comment_string)
       expect(page).to have_css(".user-name", @user.username)
     end
+
   end
 end
 

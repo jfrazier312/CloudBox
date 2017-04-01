@@ -54,7 +54,7 @@ module SessionsHelper
   def check_admin_user
     unless current_user && current_user.privilege_admin?
       flash[:danger] = "You do not have permission to perform this operation"
-      redirect_to root_path
+      redirect_back_or root_path and returns
     end
   end
 
@@ -77,7 +77,10 @@ module SessionsHelper
   # Confirms correct user
   def check_current_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
+    unless current_user?(@user)
+      flash[:danger] = "You do not have permission to perform this operation"
+      redirect_back_or users_path and return
+    end
   end
 
 end

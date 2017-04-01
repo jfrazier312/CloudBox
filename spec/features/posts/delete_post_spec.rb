@@ -12,14 +12,14 @@ feature 'User deleting posts' do
     scenario 'User deletes own post successfully' do
       post_one = FactoryGirl.create(:post, caption: "I need to delete this!", user: @user)
       visit post_path(post_one.id)
-      expect(page).to have_content 'Delete Post'
+      expect(page).to have_content 'Delete'
     end
 
     scenario 'User cannot delete non owned post' do
       post_one = FactoryGirl.create(:post, caption: "caption", user: FactoryGirl.create(:user, username: Faker::Name.name))
       visit post_path(post_one.id)
       expect(page).to have_current_path post_path(post_one.id)
-      expect(page).not_to have_selector(:link_or_button, 'Delete post')
+      expect(page).not_to have_selector(:link_or_button, 'Delete')
     end
   end
 
@@ -32,14 +32,14 @@ feature 'User deleting posts' do
       post_one = FactoryGirl.create(:post, caption: "I need to delete this!", user: @user)
       visit post_path(post_one.id)
       expect(page).to have_content 'I need to delete this!'
-      find_link('Delete Post').click
+      find_link('Delete').click
     end
 
     scenario 'Admin can delete non owned post' do
       post_one = FactoryGirl.create(:post, caption: "caption", user: FactoryGirl.create(:user, username: Faker::Name.name))
       visit post_path(post_one.id)
       expect(page).to have_current_path post_path(post_one.id)
-      find_link('Delete Post').click
+      find_link('Delete').click
     end
   end
 

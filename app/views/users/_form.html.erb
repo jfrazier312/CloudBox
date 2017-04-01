@@ -1,4 +1,4 @@
-<div class="registration-big">
+<div class="registration-bg">
   <div class="container">
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
@@ -14,11 +14,12 @@
 
                 <%= f.text_field :username, label: false, required: true, autofocus: true, :placeholder=>"Username", class: "input-lg" %>
                 <%= f.text_field :email, label: false, required: true, :placeholder=>"Email", class: "input-lg" %>
-                <%= f.password_field :password, label: false, required: true, :placeholder=>"Minimum 6 characters", class: "input-lg"%>
-                <%= f.password_field :password_confirmation, label: false, required: true, :placeholder=>"Minimum 6 characters", class: "input-lg"%>
+                <%= f.password_field :password, label: false, required: true, :placeholder=>"Password", class: "input-lg"%>
+                <%= f.password_field :password_confirmation, label: false, required: true, :placeholder=>"Confirm Password", class: "input-lg"%>
+               <!--
                 <%= f.select :privilege, User.privileges.keys.to_a , { :prompt => 'Select One' }, { class: "input-lg", :id => "select" } %> <br></br>
-
-                <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+ -->
+                <%= f.submit yield(:button_text), class: "btn-info btn-block btn-lg" %>
           <% end %>
           </div>
         </div>

@@ -16,7 +16,7 @@ RSpec.describe "Creating Posts Feature Test", :type => :feature do
 
   it 'can create a post' do
     visit_new_post
-    attach_file('Image', "app/assets/images/img_00.jpg")
+    attach_file('post_image', "app/assets/images/img_00.jpg")
     fill_in 'Caption', with: 'lmao fuck'
     click_button 'Submit'
     expect(page).to have_content('lmao fuck')
@@ -32,7 +32,7 @@ RSpec.describe "Creating Posts Feature Test", :type => :feature do
 
   it 'doesnt need a caption to create a post' do
     visit_new_post
-    attach_file('Image', "app/assets/images/img_00.jpg")
+    attach_file('post_image', "app/assets/images/img_00.jpg")
     click_button 'Submit'
     expect(page).to have_no_content('anycaption')
     expect(page).to have_css("img[src*='img_00.jpg']")

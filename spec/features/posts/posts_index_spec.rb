@@ -14,4 +14,6 @@ feature 'Index displays list of posts' do
     expect(page).to have_content 'first post'
     expect(page).to have_content 'second post'
   end
+
+
 end

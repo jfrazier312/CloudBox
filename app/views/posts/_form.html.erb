@@ -1,0 +1,29 @@
+<div class="posts-wrapper">
+  <div class="post">
+    <div class="post-body">
+      <div class="image-wrap">
+        <%= form_image_select(@post) %>
+        <%= simple_form_for @post, html: { multipart: true } do |f| %>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <% @form_obj = @post %>
+                <%= render 'shared/error_messages', object: @form_obj %>
+              </div>
+              <div class="container-fluid">
+                <div class="form-group text-center">
+                  <%= f.input :image, label: false, input_html: { onChange: 'loadFile(event)' }, id: "image_#{@post.id}" %>
+                </div>
+                <div class="form-group text-center">
+                  <%= f.label :caption %>
+                  <%= f.input :caption, label: false, placeholder: 'Add your caption' %>
+                </div>
+                <div class="form-group text-center">
+                  <%= f.submit "Submit", class: 'btn-success btn-block' %>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

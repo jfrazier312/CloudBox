@@ -1,0 +1,28 @@
+<div class="registration-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="log-in panel">
+          <div class="panel-heading">
+            <h2>Edit User</h2>
+          </div>
+          <%= form_for(@user) do |f| %>
+              <% @form_obj = @user %>
+              <%= render 'shared/error_messages', object: @form_obj %>
+
+              <div class="panel-body">
+
+                <%= f.text_field :username, label: false, required: true, autofocus: true, :placeholder=>"Username", class: "input-lg" %>
+                <%= f.text_field :email, label: false, required: true, :placeholder=>"Email", class: "input-lg" %>
+                <%= f.password_field :password, label: false, required: false, :placeholder=>"Password", class: "input-lg"%>
+                <%= f.password_field :password_confirmation, label: false, required: false, :placeholder=>"Confirm Password", class: "input-lg"%>
+
+                <!-- <%= f.select :privilege, User.privileges.keys.to_a , { :prompt => 'Select One' }, { class: "input-lg", :id => "select" } %> <br></br>-->
+                <%= f.submit yield(:button_text), class: "btn-info btn-block btn-lg" %>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
