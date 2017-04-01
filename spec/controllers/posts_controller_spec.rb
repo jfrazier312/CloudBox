@@ -36,7 +36,7 @@ feature 'Posts Controller spec tests' do
 
 
   feature 'pagination of posts' do
-    # skip "this takes too fuckin long. only test occasionally" do
+    skip "this takes too fuckin long. only test occasionally" do
       before :each do
         create_multiple_posts(11)
       end
@@ -53,7 +53,7 @@ feature 'Posts Controller spec tests' do
         find('.comment_content').set(comment_string + "\n")
         expect(page).to have_content(@user.username)
         expect(page).to have_content(comment_string)
-      # end
+      end
     end
   end
 end

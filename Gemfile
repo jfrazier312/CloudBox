@@ -15,6 +15,9 @@ group :test do
   gem 'database_cleaner'
 end
 
+# liking posts
+gem 'acts_as_votable', '~> 0.10.0' 
+
 # Paperclip for image uploading
 gem "paperclip", "~> 5.0.0"
 

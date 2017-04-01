@@ -1,11 +1,11 @@
 class Post < ApplicationRecord
-  has_attached_file :image, styles: { medium: "640x" }
+  acts_as_votable
 
+  has_attached_file :image, styles: { medium: "640x" }
 
   #Relationships:
   belongs_to :user
   has_many :comments, dependent: :destroy
-
 
   # Validations:
   validates :user_id, presence: true

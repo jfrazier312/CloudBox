@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @posts = @user.posts#.paginate(page: params[:page], per_page: 10)
+    @posts = @user.posts.paginate(page: params[:page], per_page: 3)
   end
 
   def new

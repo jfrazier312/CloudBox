@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :like]
   before_action :check_logged_in_user
   before_action :check_post_is_mine_or_admin, only: [:edit, :update, :destroy]
 
@@ -47,6 +47,15 @@ class PostsController < ApplicationController
     else
       flash.now[:danger] = "Cannot delete post"
       render @post
+    end
+  end
+
+  def like
+    if @post.liked_by current_user
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.js
+      end
     end
   end
 
