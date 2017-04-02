@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :like]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :like, :unlike]
   before_action :check_logged_in_user
   before_action :check_post_is_mine_or_admin, only: [:edit, :update, :destroy]
 
@@ -59,6 +59,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def unlike
+    if @post.unliked_by current_user
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.js
+      end
+    end
+  end
 
   private
 

@@ -18,7 +18,21 @@ module PostsHelper
     # image_tag 'placeholder.jpg', id: 'image-preview', class: 'img-responsive'
   end
 
-  def likers_of(post)
+  def display_likes(post)
+    votes = post.votes_for.up.by_type(User)
+    if votes.size >= 9
+      return count_likers(post)
+    end
+    list_likers(post)
+  end
+
+  def count_likers(post)
+    votes = post.votes_for.up.by_type(User)
+    return votes.size.to_s + ' people like this'
+  end
+
+
+  def list_likers(post)
     votes = post.votes_for.up.by_type(User)
     usernames = []
     unless votes.blank?
@@ -29,6 +43,15 @@ module PostsHelper
       end
       usernames.to_sentence.html_safe + like_plural(votes)
     end
+  end
+
+  def user_liked_post?(post)
+    current_user.voted_for? post
+  end
+
+  def liked_post(post)
+    return 'glyphicon-heart' if current_user.voted_for? post
+    'glyphicon-heart-empty'
   end
 
   private
