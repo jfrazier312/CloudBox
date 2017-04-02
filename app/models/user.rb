@@ -12,6 +12,8 @@ class User < ApplicationRecord
   # Relationships:
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :assets, dependent: :destroy
+
 
   # Validations:
   validates :username, presence: true, length: { minimum: 4, maximum: 50 }, uniqueness: { case_sensitive: false }
