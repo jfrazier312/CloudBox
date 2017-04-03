@@ -10,8 +10,8 @@ FactoryGirl.define do
       privilege "admin"
     end
 
-    factory :user_regular do
-      privilege "regular"
+    factory :user_standard do
+      privilege "standard"
     end
   end
 

@@ -1,11 +1,11 @@
 class User < ApplicationRecord
   acts_as_voter
 
-  PRIVILEGE_OPTIONS = %w(regular admin)
+  PRIVILEGE_OPTIONS = %w(standard admin)
 
   # enums:
   enum privilege: {
-      regular: 0,
+      standard: 0,
       admin: 1
   }, _prefix: :privilege
 

@@ -6,7 +6,7 @@ feature 'User deleting posts' do
 
   context 'Regular user is deleting posts' do
     before :each do
-      login(:user_regular)
+      login(:user_standard)
     end
 
     scenario 'User deletes own post successfully' do

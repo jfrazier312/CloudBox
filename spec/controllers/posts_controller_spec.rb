@@ -8,12 +8,12 @@ feature 'Posts Controller spec tests' do
   feature 'user edits non owned post' do
 
     before :each do
-      @user = create :user_regular
+      @user = create :user_standard
       @post = create :post, user_id: @user.id
     end
 
     scenario 'user does not own post' do
-      login(:user_regular)
+      login(:user_standard)
       visit post_path(@post.id)
       expect(page).to have_no_content('Edit')
       visit edit_post_path(@post.id)
@@ -41,7 +41,7 @@ feature 'Posts Controller spec tests' do
         create_multiple_posts(11)
       end
       scenario 'checks all pages of posts', js: true do
-        login(:user_regular)
+        login(:user_standard)
         comment_string="my new comment"
         visit posts_path
         expect(page).to have_content('Previous')
@@ -58,18 +58,26 @@ feature 'Posts Controller spec tests' do
   end
 
   feature 'posts are ordered by descending created_at time' do
-    before :each do
-      create_multiple_posts(3)
-      login(:user_regular)
-    end
+    # before :each do
+    #   create_multiple_posts(3)
+    #   login(:user_regular)
+    # end
 
-    scenario 'user creates new post and its put at top (really right now its verifiying that its not being put at the bottom' do
-      visit posts_path
-      find('.time-ago', match: :first)
-      last_post = page.all('.time-ago').last
-      create :post
-      new_last = page.all('.time-ago').last
-      assert_equal last_post, new_last
+    scenario 'user creates new post and its put at top' do
+      skip "this doesn't test anything : how to get value from div ID? " do
+        visit posts_path
+        first_post = find('.time-ago', match: :first)
+        last_post = page.all('.time-ago').last
+        create :post
+        binding.pry
+        new_first = find('.time-ago', match: :first)
+        new_last = page.all('.time-ago').last
+
+        expect(last_post).to eq new_last
+        puts first_post
+        puts new_first
+        expect(first_post).to eq new_first
+      end
     end
   end
 end

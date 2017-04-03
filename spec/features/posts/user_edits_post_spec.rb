@@ -5,7 +5,7 @@ feature 'User editing posts' do
 
   context 'Regular user is editing posts' do
     before :each do
-      login(:user_regular)
+      login(:user_standard)
     end
 
     scenario 'User edits own post successfully' do

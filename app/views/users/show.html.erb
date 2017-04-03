@@ -1,26 +1,52 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Username:</strong>
+  <strong>Username: </strong>
   <%= @user.username %>
 </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
 
-<% if is_admin? || current_user?(current_user)%>
+<% if is_admin? || current_user?(@user)%>
     <p>
       <strong>Privilege:</strong>
       <%= @user.privilege %>
     </p>
+    <p>
+      <strong>Email:</strong>
+      <%= @user.email %>
+    </p>
 <% end %>
 
 
-<%= render @posts %>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#home" data-toggle="tab">Posts</a></li>
+  <% if is_admin? || current_user?(@user)%>
+      <li><a href="#assets" data-toggle="tab">Files</a></li>
+  <% end %>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active in" id="home">
+    <br>
+    <% if @posts.size != 0 %>
+        <%= render @posts %>
+    <% else %>
+       <strong>No Posts Yet!</strong> <br> <br>
+    <% end %>
+    <div class="text-center">
+      <%= will_paginate @posts %>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="assets">
+    <br>
+    <%= render 'assets/asset_table' %>
+  </div>
+</div>
 
 
-<% if is_admin? || current_user?(@user) %>
+<% if current_user?(@user) %>
     <%= link_to 'Edit', edit_user_path(@user) %>
 <% end %>
+
+

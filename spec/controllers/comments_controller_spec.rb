@@ -7,12 +7,12 @@ feature 'Comments Controller spec tests' do
   feature 'user creates comment' do
 
     before :each do
-      @user = create :user_regular
+      @user = create :user_standard
       @post = create :post, user_id: @user.id
     end
 
     scenario 'user does not own post' do
-      login(:user_regular)
+      login(:user_standard)
       visit post_path(@post.id)
       expect(page).to have_no_content('Edit')
       visit edit_post_path(@post.id)
