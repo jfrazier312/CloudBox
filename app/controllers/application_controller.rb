@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include PostsHelper
   include CommentsHelper
+  include AssetsHelper
   # include RequestsHelper
   # include ItemsHelper
 end

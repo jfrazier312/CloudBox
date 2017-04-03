@@ -4,13 +4,12 @@ class AssetsController < ApplicationController
   before_action :set_all_assets, only: [:index]
   before_action :set_user
   before_action :set_specific_asset, only: [:show, :edit, :update, :destroy, :get]
-
+  before_action :check_file_is_mine_or_admin
 
   # GET /assets
   # GET /assets.json
   def index
   end
-
 
   # GET /assets/1
   # GET /assets/1.json
@@ -88,7 +87,7 @@ class AssetsController < ApplicationController
 
   def set_specific_asset
     set_user
-    @asset = current_user.assets.find(params[:id])
+    @asset = @user.assets.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
