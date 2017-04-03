@@ -31,10 +31,11 @@ class AssetsController < ApplicationController
     @asset = @user.assets.new(asset_params)
 
     respond_to do |format|
-      if @asset.save!
+      if @asset.save
         format.html { redirect_to user_assets_path  }
         format.json { render user_assets_path, status: :created, location: @asset }
       else
+        flash[:danger] = "File could not be saved"
         format.html { render :new }
         format.json { render json: @asset.errors, status: :unprocessable_entity }
       end
@@ -84,6 +85,6 @@ class AssetsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def asset_params
-    params.require(:asset).permit(:user_id, :uploaded_file, :filename)
+    params.require(:asset).permit(:user_id, :uploaded_file, :filename, :custom_name)
   end
 end
