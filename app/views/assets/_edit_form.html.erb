@@ -1,0 +1,5 @@
+<%= simple_form_for [user, asset], :html => { multipart: true } do |f| %>
+
+    <%= f.input :filename, class: 'form-inputs' %>
+    <%= f.submit "Submit", class: "btn btn-success form-actions" %>
+<% end %>

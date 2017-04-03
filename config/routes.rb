@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :assets
   root 'welcome#index'
 
-  resources :users
+  resources :users do
+    resources :assets
+  end
   resources :posts do
     resources :comments
     member do
