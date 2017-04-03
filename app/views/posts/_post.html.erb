@@ -10,7 +10,7 @@
         <%= time_ago_in_words post.created_at %>
       </div>
     </div>
-    <div class="image center-block">
+    <div class="image center-block" id="post_id">
       <%= link_to image_tag(post.image.url(:medium), border: 0), post_path(post), { class: "img-responsive "}%>
     </div>
     <div class="post-bottom">

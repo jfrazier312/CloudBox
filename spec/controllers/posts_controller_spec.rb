@@ -56,4 +56,20 @@ feature 'Posts Controller spec tests' do
       end
     end
   end
+
+  feature 'posts are ordered by descending created_at time' do
+    before :each do
+      create_multiple_posts(3)
+      login(:user_regular)
+    end
+
+    scenario 'user creates new post and its put at top (really right now its verifiying that its not being put at the bottom' do
+      visit posts_path
+      find('.time-ago', match: :first)
+      last_post = page.all('.time-ago').last
+      create :post
+      new_last = page.all('.time-ago').last
+      assert_equal last_post, new_last
+    end
+  end
 end
