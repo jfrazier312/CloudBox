@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403014528) do
+ActiveRecord::Schema.define(version: 20170403020410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20170403014528) do
     t.datetime "uploaded_file_updated_at"
     t.string   "filename"
     t.string   "custom_name"
+    t.text     "description"
     t.index ["user_id"], name: "index_assets_on_user_id", using: :btree
   end
 

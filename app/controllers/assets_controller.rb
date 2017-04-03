@@ -1,8 +1,9 @@
 class AssetsController < ApplicationController
+
+  before_action :check_logged_in_user
   before_action :set_all_assets, only: [:index]
   before_action :set_user
   before_action :set_specific_asset, only: [:show, :edit, :update, :destroy]
-  before_action :check_logged_in_user
 
 
   # GET /assets
@@ -35,7 +36,7 @@ class AssetsController < ApplicationController
         format.html { redirect_to user_assets_path  }
         format.json { render user_assets_path, status: :created, location: @asset }
       else
-        flash[:danger] = "File could not be saved"
+        flash[:danger] = "File could not be saved (All fields are required)"
         format.html { render :new }
         format.json { render json: @asset.errors, status: :unprocessable_entity }
       end
@@ -71,7 +72,8 @@ class AssetsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_all_assets
-    @assets = current_user.assets.all
+    set_user
+    @assets = @user.assets.all
   end
 
   def set_user
@@ -79,12 +81,12 @@ class AssetsController < ApplicationController
   end
 
   def set_specific_asset
-    @user = User.find(params[:user_id])
+    set_user
     @asset = current_user.assets.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def asset_params
-    params.require(:asset).permit(:user_id, :uploaded_file, :filename, :custom_name)
+    params.require(:asset).permit(:user_id, :uploaded_file, :filename, :custom_name, :description)
   end
 end

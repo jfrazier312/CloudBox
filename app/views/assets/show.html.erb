@@ -1,9 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= @asset.user_id %>
-</p>
+
+
+<br>
+<br>
+
+<div class="text-center">
+    <strong>User: <%= @user.username %></strong>
+
+</div>
 
 <%= link_to 'Edit', edit_user_asset_path(@asset) %> |
 <%= link_to 'Back', user_assets_path %>
