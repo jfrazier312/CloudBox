@@ -17,6 +17,7 @@
       <ul class="nav navbar-nav navbar-left">
         <% if logged_in? %>
             <li><%= link_to "New Post", new_post_path %></li>
+            <li><%= link_to "New File", new_user_asset_path(current_user)%></li>
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -32,7 +33,7 @@
               <a href="#" class="dropdown-toggle" id="drop_down_account" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><%= link_to "Users", users_path %></li>
-                <li><a href="#">Another action</a></li>
+                <li><%= link_to "Files", user_assets_path(current_user) %></li>
                 <li><a href="#">Something else here</a></li>
                 <li role="separator" class="divider"></li>
                 <li><%= link_to "My Account", user_path(current_user) %></li>

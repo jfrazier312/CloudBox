@@ -1,3 +1,7 @@
+<div class="text-center">
+  <h1>Upload Image</h1>
+</div>
+
 <div class="posts-wrapper">
   <div class="post">
     <div class="post-body">
@@ -14,8 +18,8 @@
                   <%= f.input :image, label: false, input_html: { onChange: 'loadFile(event)' }, id: "image_#{@post.id}" %>
                 </div>
                 <div class="form-group text-center">
-                  <%= f.label :caption %>
-                  <%= f.input :caption, label: false, placeholder: 'Add your caption' %>
+                  <!--<%= f.label :caption %>-->
+                  <%= f.input :caption, label: false, placeholder: 'Add your caption', class: 'text-center' %>
                 </div>
                 <div class="form-group text-center">
                   <%= f.submit "Submit", class: 'btn-success btn-block' %>

@@ -3,7 +3,7 @@ class AssetsController < ApplicationController
   before_action :check_logged_in_user
   before_action :set_all_assets, only: [:index]
   before_action :set_user
-  before_action :set_specific_asset, only: [:show, :edit, :update, :destroy]
+  before_action :set_specific_asset, only: [:show, :edit, :update, :destroy, :get]
 
 
   # GET /assets
@@ -66,6 +66,12 @@ class AssetsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to user_assets_path  }
       format.json { head :no_content }
+    end
+  end
+
+  def get
+    if @asset
+      send_file @asset.uploaded_file.path, :type => @asset.uploaded_file_content_type
     end
   end
 

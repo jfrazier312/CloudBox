@@ -9,7 +9,8 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.paginate(page: params[:page], per_page: 10)
+    posts = Post.order("created_at DESC")
+    @posts = posts.paginate(page: params[:page], per_page: 10)
   end
 
   def show
