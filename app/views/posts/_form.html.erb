@@ -17,10 +17,16 @@
                 <div class="form-group text-center">
                   <%= f.input :image, label: false, input_html: { onChange: 'loadFile(event)' }, id: "image_#{@post.id}" %>
                 </div>
-                <div class="form-group text-center">
-                  <!--<%= f.label :caption %>-->
-                  <%= f.input :caption, label: false, placeholder: 'Add your caption', class: 'text-center' %>
+                <div class="form-group">
+                  <%= f.label :caption, class: "col-lg-2 control-label" %>
+                  <div class="col-lg-10 control-label">
+                    <%= f.input :caption, label: false, placeholder: 'Add your caption', class: 'form-control' %>
+                  </div>
                 </div>
+                <br>
+                <br>
+
+
                 <div class="form-group text-center">
                   <%= f.submit "Submit", class: 'btn-success btn-block' %>
                 </div>
