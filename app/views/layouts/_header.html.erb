@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
       </button>
       <div class="navbar-brand">
-        <%= link_to "DropBox", posts_path %>
+        <%= link_to "CloudBox", posts_path %>
       </div>
     </div>
 
@@ -34,7 +34,6 @@
               <ul class="dropdown-menu">
                 <li><%= link_to "Users", users_path %></li>
                 <li><%= link_to "Files", user_assets_path(current_user) %></li>
-                <li><a href="#">Something else here</a></li>
                 <li role="separator" class="divider"></li>
                 <li><%= link_to "My Account", user_path(current_user) %></li>
                 <li><%= link_to "Log out", logout_path, method: "delete" %></li>

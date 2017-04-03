@@ -78,7 +78,7 @@ class AssetsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_all_assets
     set_user
-    @assets = @user.assets.all
+    @assets = @user.assets.paginate(page: params[:page], per_page: 10)
   end
 
   def set_user
