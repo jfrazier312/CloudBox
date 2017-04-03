@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403020410) do
+ActiveRecord::Schema.define(version: 20170403041819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,13 @@ ActiveRecord::Schema.define(version: 20170403020410) do
     t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
   end
 
+  create_table "user_assets", force: :cascade do |t|
+    t.integer "assets_id"
+    t.integer "users_id"
+    t.index ["assets_id"], name: "index_user_assets_on_assets_id", using: :btree
+    t.index ["users_id"], name: "index_user_assets_on_users_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "email"
@@ -77,4 +84,6 @@ ActiveRecord::Schema.define(version: 20170403020410) do
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "user_assets", "assets", column: "assets_id"
+  add_foreign_key "user_assets", "users", column: "users_id"
 end
