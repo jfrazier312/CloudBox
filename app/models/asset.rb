@@ -1,6 +1,8 @@
 class Asset < ApplicationRecord
 
   belongs_to :user
+  has_many :shared_assets, dependent: :destroy
+
 
   has_attached_file :uploaded_file,
                       :url => "/assets/get/:id",

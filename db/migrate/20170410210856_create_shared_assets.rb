@@ -7,5 +7,9 @@ class CreateSharedAssets < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
+    add_index :shared_assets, [:asset_id, :user_id], :unique => true
+
   end
+
+
 end

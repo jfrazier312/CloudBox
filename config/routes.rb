@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
 
   resources :users do
-    resources :assets
+    resources :assets do
+      member do
+        post :share_assets
+      end
+    end
     get "assets/get/:id" => "assets#get", :as => "download"
   end
 
@@ -15,7 +19,9 @@ Rails.application.routes.draw do
       get :unlike
     end
   end
+
   resources :sessions
+  resources :shared_assets
 
   # Login and Sessions routes
   get   '/login',   to: 'sessions#new'      #Describes the login screen

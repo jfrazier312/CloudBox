@@ -3,8 +3,8 @@ class AssetsController < ApplicationController
   before_action :check_logged_in_user
   before_action :set_all_assets, only: [:index]
   before_action :set_user
-  before_action :set_specific_asset, only: [:show, :edit, :update, :destroy, :get]
-  before_action :check_file_is_mine_or_admin
+  before_action :set_specific_asset, only: [:show, :edit, :update, :destroy, :get, :share_assets]
+  before_action :check_file_is_mine_or_admin, except: [:get]
 
   # GET /assets
   # GET /assets.json
@@ -14,6 +14,7 @@ class AssetsController < ApplicationController
   # GET /assets/1
   # GET /assets/1.json
   def show
+    @shared_with = SharedAsset.find_shared_with(@asset)
   end
 
   # GET /assets/new
@@ -45,7 +46,6 @@ class AssetsController < ApplicationController
   # PATCH/PUT /assets/1
   # PATCH/PUT /assets/1.json
   def update
-
     respond_to do |format|
       if @asset.update_attributes(asset_params)
         format.html { redirect_to user_assets_path  }
@@ -68,7 +68,24 @@ class AssetsController < ApplicationController
     end
   end
 
+  def share_assets
+    begin
+      @user.share_asset_with(@asset, params[:user_shared_list])
+      flash[:success] = "File shared with #{params[:user_shared_list]}"
+      redirect_to user_asset_path(@user, @asset)
+    rescue Exception => e
+      flash[:danger] = e.message
+      redirect_to user_asset_path(@user, @asset)
+    end
+  end
+
   def get
+    begin
+      current_user.check_shared_with_me(@asset)
+    rescue Exception => e
+      flash[:danger] = e.message
+      redirect_to user_path(@user)
+    end
     if @asset
       send_file @asset.uploaded_file.path, :type => @asset.uploaded_file_content_type
     end
@@ -87,11 +104,11 @@ class AssetsController < ApplicationController
 
   def set_specific_asset
     set_user
-     @asset = @user.assets.find(params[:id])
+    @asset = @user.assets.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def asset_params
-    params.require(:asset).permit(:user_id, :uploaded_file, :filename, :custom_name, :description)
+    params.fetch(:asset, {}).permit(:user_id, :uploaded_file, :filename, :custom_name, :description, :user_shared_list)
   end
 end

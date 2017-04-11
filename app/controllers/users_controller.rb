@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   def show
     @posts = @user.posts.paginate(page: params[:page], per_page: 10)
     @assets = @user.assets.all
+    set_shared_assets
   end
 
   def new
@@ -62,6 +63,15 @@ class UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
+  end
+
+
+  def set_shared_assets
+    shared_assets = SharedAsset.where(user_id: @user.id)
+    @shared_assets = []
+    shared_assets.each do |f|
+      @shared_assets << Asset.find(f.asset_id)
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
