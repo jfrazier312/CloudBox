@@ -21,8 +21,6 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }, :if => :password
   validates :privilege, :inclusion => { :in => PRIVILEGE_OPTIONS }
-  # Only allow letter, number, underscore and punctuation.
-  # validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 
   #####################################################################################################################
 
