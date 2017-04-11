@@ -15,6 +15,8 @@ gem "capybara-webkit"
   gem 'database_cleaner'
 end
 
+gem 'chosen-rails'
+
 # liking posts
 gem 'acts_as_votable', '~> 0.10.0' 
 

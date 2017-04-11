@@ -22,7 +22,8 @@
   <li class="active"><a href="#home" data-toggle="tab">Posts</a></li>
   <% if is_admin? || current_user?(@user)%>
       <li><a href="#assets" data-toggle="tab">Files</a></li>
-  <% end %>
+      <li><a href="#sharedwithme" data-toggle="tab">Shared with Me</a></li>
+<% end %>
 </ul>
 
 <div id="myTabContent" class="tab-content">
@@ -41,6 +42,11 @@
   <div class="tab-pane fade" id="assets">
     <br>
     <%= render 'assets/asset_table' %>
+  </div>
+
+  <div class="tab-pane fade" id="sharedwithme">
+    <br>
+    <%= render 'assets/shared_with_me' %>
   </div>
 </div>
 

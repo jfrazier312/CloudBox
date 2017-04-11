@@ -6,10 +6,28 @@
 <br>
 
 <div class="text-center">
-  <strong>User: <%= @user.username %></strong>
-  <p>File Name: <%= @asset.filename %></p>
-
+  <h2><%= link_to @user.username, user_path(@user.id) %></h2>
 </div>
 
-<%= link_to 'Edit', edit_user_asset_path(@asset) %> |
-<%= link_to 'Back', user_assets_path %>
+<p>  Custom Name: <%= @asset.custom_name %><br>
+  File Name: <%= link_to @asset.filename %>
+</p>
+
+<div class="search">
+  <%= form_tag share_assets_user_asset_path(@user, @asset), controller: 'assets', method: :post do |f| %>
+
+      <div class="form-group">
+        <%= label_tag :user_shared_list, "Shared With: ", class: 'col-lg-2 control-label' %>
+        <div class="col-lg-14">
+          <%= select_tag :user_shared_list, options_for_select(User.all.map { |u| [u.username, u.username] }, @shared_with),
+                         { include_blank: true, multiple: true, class: 'chosen-select' } %>
+        </div>
+      </div>
+    <%= submit_tag "Submit", class: "btn btn-success text-center", type: "submit" %>
+<% end %>
+</div>
+
+<br>
+
+<%= link_to 'Edit', edit_user_asset_path(@user, @asset) %> |
+<%= link_to 'Back', user_assets_path(@user) %>

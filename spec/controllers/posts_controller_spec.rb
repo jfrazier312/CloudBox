@@ -69,7 +69,6 @@ feature 'Posts Controller spec tests' do
         first_post = find('.time-ago', match: :first)
         last_post = page.all('.time-ago').last
         create :post
-        binding.pry
         new_first = find('.time-ago', match: :first)
         new_last = page.all('.time-ago').last
 

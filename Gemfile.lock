@@ -116,6 +116,10 @@ GEM
     capybara-webkit (1.14.0)
       capybara (>= 2.3.0, < 2.14.0)
       json
+    chosen-rails (1.5.2)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     climate_control (0.1.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -285,6 +289,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-webkit
+  chosen-rails
   coffee-rails (~> 4.2)
   database_cleaner
   factory_girl_rails

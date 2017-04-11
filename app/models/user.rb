@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :assets, dependent: :destroy
+  has_many :shared_assets, dependent: :destroy
 
 
   # Validations:
@@ -33,6 +34,17 @@ class User < ApplicationRecord
     end
   end
 
+  def share_asset_with(asset, user_list)
+    SharedAsset.destroy_previous_shares(asset)
+    User.transaction do
+      raise Exception.new("Must choose a user to share file with") unless user_list && user_list.size > 0
+      user_list.each do |username|
+        shared_asset = SharedAsset.new(asset_id: asset.id, user_id: User.find_by(username: username).id)
+        shared_asset.save!
+      end
+    end
+  end
+
   # Class Methods
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
@@ -47,6 +59,11 @@ class User < ApplicationRecord
         where(username: conditions[:username]).first
       end
     end
+  end
+
+  def check_shared_with_me(asset)
+    asset = SharedAsset.find_by(user_id: self.id, asset_id: asset.id)
+    raise Exception.new('You do not have permission to download this file') if asset.nil?
   end
 
   # Returns the hash digest for a given string, used in fixtures for testing
