@@ -20,4 +20,6 @@
 # ignoring public assets..? and idea.workspace?
 .idea
 /public/assets
+.idea*
+
 

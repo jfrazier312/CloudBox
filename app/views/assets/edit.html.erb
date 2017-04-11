@@ -7,7 +7,7 @@
 <br>
 <%= render 'edit_form', user: @user, asset: @asset %>
 <div class="text-center edit-links">
-  <%= link_to 'Show', user_asset_path(@asset) %> |
+  <%= link_to 'Show', user_asset_path(@user, @asset) %> |
   <%= link_to 'Back', user_assets_path %>
 </div>
 

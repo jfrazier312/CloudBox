@@ -6,6 +6,16 @@ class Post < ApplicationRecord
   #Relationships:
   belongs_to :user
   has_many :comments, dependent: :destroy
+  # research this, should allow you to set or update attributes on associated comments through an attribute hash for a post
+  # params = { post: {
+  #     caption: 'my_caption!!', comments_attributes: [
+  #         { content: 'Kari, the awesome Ruby documentation browser!' },
+  #         { content: 'The egalitarian assumption of the modern citizen' },
+  #         { content: '', _destroy: '1' } # this will be ignored
+  #     ]
+  # }}
+  # post = Post.create(params[:member])
+  accepts_nested_attributes_for :comments
 
   # Validations:
   validates :user_id, presence: true
