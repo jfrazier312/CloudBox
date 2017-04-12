@@ -22,4 +22,5 @@ class Asset < ApplicationRecord
     self.filename = uploaded_file.original_filename
   }
 
+
 end

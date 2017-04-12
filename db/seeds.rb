@@ -28,6 +28,21 @@ end
                        password_confirmation: password
   );
 
+  username2 = Faker::Name.name
+  email2 = "example2-#{n+1}@example.com"
+  password2 = "password"
+
+  user2 = User.create!(username: username2,
+                       email: email2,
+                       password: password,
+                       password_confirmation: password
+  );
+
+  Friend.create!(
+            user_1_id: user.id,
+            user_2_id: user2.id
+  )
+
   Post.create!(
       #image: seed_image(arr.sample),
       image: seed_image("img_0#{n}"),
@@ -35,7 +50,10 @@ end
       caption: Faker::Lorem.paragraph(2, true, 1),
       user_id: user.id
   );
+
+
 end
 
 User.create!(username: 'admin', email: 'admin123@email.com', password: 'password', password_confirmation: 'password', privilege: 'admin')
 User.create!(username: 'regular', email: 'regular123@email.com', password: 'password', password_confirmation: 'password')
+

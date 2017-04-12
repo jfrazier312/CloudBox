@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :assets, dependent: :destroy
   has_many :shared_assets, dependent: :destroy
+  has_many :friends, dependent: :destroy
 
 
   # Validations:
@@ -59,9 +60,33 @@ class User < ApplicationRecord
     end
   end
 
-  def check_shared_with_me(asset)
+  def add_friend(user)
+    friend = Friend.new(user_1_id: self.id, user_2_id: user.id)
+    raise Exception.new('Cannot save friend') unless friend.save!
+  end
+
+  # Returns true is either one of these conditionals returns a non empty set
+  def is_friends_with?(user)
+    !Friend.where(user_1_id: self.id, user_2_id: user.id).empty? || !Friend.where(user_1_id: user.id, user_2_id: self.id).empty?
+  end
+
+  def get_all_friends
+    Friend.where(user_1_id: self.id) | Friend.where(user_2_id: self.id)
+  end
+
+  def check_if_shared_with_me(asset)
     asset = SharedAsset.find_by(user_id: self.id, asset_id: asset.id)
     raise Exception.new('You do not have permission to download this file') if asset.nil?
+  end
+
+  def share_with_friends(asset)
+    binding.pry
+    Asset.transaction do
+      friends = self.get_all_friends
+      friends.each do |friend|
+        SharedAsset.create!(asset_id: asset.id, user_id: friend.id)
+      end
+    end
   end
 
   # Returns the hash digest for a given string, used in fixtures for testing

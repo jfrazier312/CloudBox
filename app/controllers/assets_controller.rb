@@ -81,10 +81,10 @@ class AssetsController < ApplicationController
 
   def get
     begin
-      current_user.check_shared_with_me(@asset)
+      current_user.check_if_shared_with_me(@asset)
     rescue Exception => e
       flash[:danger] = e.message
-      redirect_to user_path(@user)
+      redirect_to user_path(@user) and return
     end
     if @asset
       send_file @asset.uploaded_file.path, :type => @asset.uploaded_file_content_type
