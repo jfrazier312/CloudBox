@@ -77,10 +77,11 @@ module SessionsHelper
   # Confirms correct user
   def check_current_user
     @user = User.find(params[:id])
-    unless current_user?(@user)
+    unless current_user?(@user) || is_admin?
       flash[:danger] = "You do not have permission to perform this operation"
-      redirect_back_or users_path and return
+      redirect_back_or root_path and return
     end
   end
+
 
 end

@@ -1,0 +1,13 @@
+<% friends.each do |f| %>
+    <tr>
+      <td>
+        <%= link_to f.username, user_path(f) %>
+      </td>
+      <td>
+        <%= f.email %>
+      </td>
+      <% if is_admin? || current_user?(@user) %>
+          <td><%= link_to "Remove Friend", user_friend_path(@user, f), method: :delete, class: 'btn btn-primary', data: { confirm: 'Are you sure you want to remove friend? This will delete all shared files' } %></td>
+      <% end %>
+    </tr>
+<% end %>

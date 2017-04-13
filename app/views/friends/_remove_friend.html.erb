@@ -1,0 +1,3 @@
+<%= form_for(friend) do |f| %>
+    <%= link_to "Remove Friend", friend_path(friend), method: :delete, data: {confirm: 'Are you sure you want to remove this friends? You will lose all shared files'}, class: 'btn btn-primary btn-xs' %>
+<% end %>

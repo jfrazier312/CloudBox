@@ -14,7 +14,8 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :assets, dependent: :destroy
   has_many :shared_assets, dependent: :destroy
-  has_many :friends, dependent: :destroy
+  has_many :friends, :foreign_key => "user_1_id", dependent: :destroy
+  has_many :friends, :foreign_key => "user_2_id", dependent: :destroy
 
 
   # Validations:
@@ -62,7 +63,7 @@ class User < ApplicationRecord
 
   def add_friend(user)
     friend = Friend.new(user_1_id: self.id, user_2_id: user.id)
-    raise Exception.new('Cannot save friend') unless friend.save!
+    raise Exception.new('Cannot be friends :(') unless friend.save!
   end
 
   # Returns true is either one of these conditionals returns a non empty set
@@ -74,9 +75,18 @@ class User < ApplicationRecord
     Friend.where(user_1_id: self.id) | Friend.where(user_2_id: self.id)
   end
 
+  def get_users_from_friends(friends)
+    users = []
+    friends.each do |friend|
+      id = (friend.user_1_id == self.id) ? friend.user_2_id : friend.user_1_id
+      users << User.find(id)
+    end
+    return users
+  end
+
   def check_if_shared_with_me(asset)
-    asset = SharedAsset.find_by(user_id: self.id, asset_id: asset.id)
-    raise Exception.new('You do not have permission to download this file') if asset.nil?
+    shared_asset = SharedAsset.find_by(user_id: self.id, asset_id: asset.id)
+    raise Exception.new('You do not have permission to download this file') if shared_asset.nil? && asset.user != self
   end
 
   def share_with_friends(asset)

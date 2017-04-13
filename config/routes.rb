@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
 
   resources :users do
+    resources :friends
+    member do
+      post :add_friend
+    end
     resources :assets do
       member do
         post :share_assets

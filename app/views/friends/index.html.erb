@@ -1,0 +1,19 @@
+
+<div class="center jumbotron">
+  <h1>Friends</h1>
+</div>
+
+<ul class="friends">
+  <table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>Username</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= render 'all_my_friends', friends: @friends %>
+    </tbody>
+  </table>
+</ul>

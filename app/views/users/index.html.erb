@@ -14,12 +14,14 @@
     <tr>
       <th>Username</th>
       <th>Email</th>
-      <th>Privilege</th>
-      <th>Delete</th>
+      <% if is_admin? %>
+          <th>Privilege</th>
+          <th>Delete</th>
+      <% end %>
     </tr>
     </thead>
     <tbody>
-       <%= render @users %>
+    <%= render @users %>
     </tbody>
   </table>
 </ul>

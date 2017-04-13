@@ -14,6 +14,7 @@ class AssetsController < ApplicationController
   # GET /assets/1
   # GET /assets/1.json
   def show
+    # Finds all users that the asset is shared with
     @shared_with = SharedAsset.find_shared_with(@asset)
   end
 

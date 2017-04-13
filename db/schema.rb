@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412070657) do
+ActiveRecord::Schema.define(version: 20170413015238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20170412070657) do
     t.string   "filename"
     t.string   "custom_name"
     t.text     "description"
+    t.boolean  "shared_with_friends"
     t.index ["user_id"], name: "index_assets_on_user_id", using: :btree
   end
 
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(version: 20170412070657) do
     t.integer  "user_2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_1_id", "user_2_id"], name: "index_friends_on_user_1_id_and_user_2_id", unique: true, using: :btree
     t.index ["user_1_id"], name: "index_friends_on_user_1_id", using: :btree
     t.index ["user_2_id"], name: "index_friends_on_user_2_id", using: :btree
   end

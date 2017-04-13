@@ -6,13 +6,14 @@
   <td>
     <%= user.email %>
   </td>
-  <td>
-    <%= user.privilege %>
-  </td>
-  <td>
-    <% if is_admin? && !current_user?(user) %>
-        <%= render 'deactivateuserform', user: user %>
-    <% end %>
-  </td>
+  <% if is_admin? && !current_user?(user) %>
+      <td>
+        <%= user.privilege %>
+      </td>
+      <td>
+      <%= render 'deactivateuserform', user: user %>
+      </td>
+  <% end %>
+
 </tr>
 
