@@ -3,6 +3,7 @@
   <td><%= link_to asset.filename, user_download_path(@user, asset) %></td>
   <!--<td><%= link_to 'Show', user_asset_path(@user, asset) %></td>-->
   <td><%= asset.description %></td>
+  <td><%= link_to 'Share', user_asset_path(@user, asset) %></td>
   <td><%= link_to 'Edit', edit_user_asset_path(@user, asset) %></td>
   <td><%= link_to 'Delete', user_asset_path(@user, asset), method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

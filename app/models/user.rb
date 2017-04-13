@@ -37,7 +37,7 @@ class User < ApplicationRecord
   def share_asset_with(asset, user_list)
     SharedAsset.destroy_previous_shares(asset)
     User.transaction do
-      raise Exception.new("Must choose a user to share file with") unless user_list && user_list.size > 0
+      raise Exception.new("File not directly shared with any users") unless user_list && user_list.size > 0
       user_list.each do |username|
         shared_asset = SharedAsset.new(asset_id: asset.id, user_id: User.find_by(username: username).id)
         shared_asset.save!
@@ -90,10 +90,10 @@ class User < ApplicationRecord
   end
 
   def share_with_friends(asset)
-    binding.pry
     Asset.transaction do
       friends = self.get_all_friends
-      friends.each do |friend|
+      user_friends = self.get_users_from_friends(friends)
+      user_friends.each do |friend|
         SharedAsset.create!(asset_id: asset.id, user_id: friend.id)
       end
     end
@@ -112,8 +112,6 @@ class User < ApplicationRecord
     my_friends_users = self.get_users_from_friends(friends)
 
     my_friends_users.each do |user|
-      binding.pry
-
       assets = user.assets.where(privacy: 'friends') | user.assets.where(privacy: 'public')
       if assets.size > 0
         assets.each do |asset|

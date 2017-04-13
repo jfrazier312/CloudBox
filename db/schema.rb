@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413030641) do
+ActiveRecord::Schema.define(version: 20170413230551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "assets", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "uploaded_file_file_name"
     t.string   "uploaded_file_content_type"
     t.integer  "uploaded_file_file_size"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20170413030641) do
     t.string   "filename"
     t.string   "custom_name"
     t.text     "description"
-    t.integer  "privacy"
+    t.integer  "privacy",                    default: 0
     t.index ["user_id"], name: "index_assets_on_user_id", using: :btree
   end
 

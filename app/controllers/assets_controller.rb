@@ -33,11 +33,12 @@ class AssetsController < ApplicationController
     @asset = @user.assets.new(asset_params)
 
     respond_to do |format|
-      if @asset.save
+      begin
+        @asset.save!
         format.html { redirect_to user_assets_path  }
         format.json { render user_assets_path, status: :created, location: @asset }
-      else
-        flash[:danger] = "File could not be saved (All fields are required, max file size is 10MB)"
+      rescue Exception =>  e
+        flash.now[:danger] = "File could not be saved. Error: #{e.message}"
         format.html { render :new }
         format.json { render json: @asset.errors, status: :unprocessable_entity }
       end

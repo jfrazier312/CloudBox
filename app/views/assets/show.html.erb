@@ -8,6 +8,8 @@
 <div class="text-center">
   <h2><%= link_to @user.username, user_path(@user.id) %></h2>
 </div>
+<br>
+<br>
 
 <p>  Custom Name: <%= @asset.custom_name %><br>
   File Name: <%= link_to @asset.filename %>
@@ -23,11 +25,15 @@
                          { include_blank: true, multiple: true, class: 'chosen-select' } %>
         </div>
       </div>
+      <br>
+      <br>
+
     <%= submit_tag "Submit", class: "btn btn-success text-center", type: "submit" %>
 <% end %>
 </div>
 
 <br>
+
 
 <%= link_to 'Edit', edit_user_asset_path(@user, @asset) %> |
 <%= link_to 'Back', user_assets_path(@user) %>
