@@ -43,6 +43,15 @@ end
             user_2_id: user2.id
   )
 
+  Asset.create!(
+           user_id: user.id,
+           uploaded_file: seed_image("img_0#{n}"),
+           filename: 'filename!',
+           custom_name: 'custom_name!',
+           description: 'my desciprtion',
+           privacy: 'private'
+  )
+
   Post.create!(
       #image: seed_image(arr.sample),
       image: seed_image("img_0#{n}"),

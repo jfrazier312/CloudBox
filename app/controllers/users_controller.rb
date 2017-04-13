@@ -74,13 +74,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-
   def set_shared_assets
-    shared_assets = SharedAsset.where(user_id: @user.id)
-    @shared_assets = []
-    shared_assets.each do |f|
-      @shared_assets << Asset.find(f.asset_id)
-    end
+    @shared_assets = @user.get_all_shared_assets
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

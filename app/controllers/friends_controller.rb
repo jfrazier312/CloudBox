@@ -6,6 +6,7 @@ class FriendsController < ApplicationController
   # TODO: Add security checks, is current user or admin?
 
   def index
+    # Gets friends records first, then gets all users corresponding to the friends that are not the @user
     friends = @user.get_all_friends
     @friends = @user.get_users_from_friends(friends)
   end

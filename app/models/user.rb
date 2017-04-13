@@ -99,6 +99,31 @@ class User < ApplicationRecord
     end
   end
 
+  def get_all_shared_assets
+    shared_assets = SharedAsset.where(user_id: self.id)
+    total_shared_assets = []
+    # get all directly shared assets
+    shared_assets.each do |f|
+      total_shared_assets << Asset.find(f.asset_id)
+    end
+
+    # get all public/shared with friends assets
+    friends = self.get_all_friends
+    my_friends_users = self.get_users_from_friends(friends)
+
+    my_friends_users.each do |user|
+      binding.pry
+
+      assets = user.assets.where(privacy: 'friends') | user.assets.where(privacy: 'public')
+      if assets.size > 0
+        assets.each do |asset|
+          total_shared_assets << asset
+        end
+      end
+    end
+    return total_shared_assets
+  end
+
   # Returns the hash digest for a given string, used in fixtures for testing
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
