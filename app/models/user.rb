@@ -61,9 +61,11 @@ class User < ApplicationRecord
     end
   end
 
+  # Returns false instead of throwing exception
   def add_friend(user)
     friend = Friend.new(user_1_id: self.id, user_2_id: user.id)
-    raise Exception.new('Cannot be friends :(') unless friend.save!
+    friend.save
+    # raise Exception.new('Cannot be friends :(') unless friend.save!
   end
 
   # Returns true is either one of these conditionals returns a non empty set
@@ -86,22 +88,31 @@ class User < ApplicationRecord
 
   def check_if_shared_with_me(asset)
     shared_asset = SharedAsset.find_by(user_id: self.id, asset_id: asset.id)
-    raise Exception.new('You do not have permission to download this file') if shared_asset.nil? && asset.user != self
+    # Fail unless shared asset exists, or you own the asset, or asset is privacy friends and you're a friend
+    if (asset.privacy_friends? && !self.is_friends_with?(asset.user)) && (shared_asset.nil?) && (asset.user != self)
+      raise Exception.new('You do not have permission to download this file')
+    end
   end
 
-  def share_with_friends(asset)
+  # Creates direct share between friends to shared asset table, persists after removal of friends
+  def share_directly_with_friends(asset)
     Asset.transaction do
       friends = self.get_all_friends
       user_friends = self.get_users_from_friends(friends)
       user_friends.each do |friend|
-        SharedAsset.create!(asset_id: asset.id, user_id: friend.id)
+        SharedAsset.create(asset_id: asset.id, user_id: friend.id)
       end
     end
   end
 
+  # changes privacy of file to friends, so if you are friends you will share
+  def share_with_friends(asset)
+    asset.update!(privacy: 'friends')
+  end
+
   def get_all_shared_assets
     shared_assets = SharedAsset.where(user_id: self.id)
-    total_shared_assets = []
+    total_shared_assets = Set.new
     # get all directly shared assets
     shared_assets.each do |f|
       total_shared_assets << Asset.find(f.asset_id)

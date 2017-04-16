@@ -3,6 +3,8 @@ class SharedAsset < ApplicationRecord
   belongs_to :asset
   belongs_to :user
 
+  validates_uniqueness_of :asset_id, scope: [:user_id]
+
   def self.find_shared_with(asset)
     shared_assets = SharedAsset.where(asset_id: asset.id)
     users = []
