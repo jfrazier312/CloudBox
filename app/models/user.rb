@@ -86,6 +86,13 @@ class User < ApplicationRecord
     return users
   end
 
+  def get_friends_usernames
+    users = self.get_users_from_friends(self.get_all_friends)
+    usernames = []
+    users.each { |f| usernames << f.username }
+    return usernames
+  end
+
   def check_if_shared_with_me(asset)
     shared_asset = SharedAsset.find_by(user_id: self.id, asset_id: asset.id)
     # Fail unless shared asset exists, or you own the asset, or asset is privacy friends and you're a friend

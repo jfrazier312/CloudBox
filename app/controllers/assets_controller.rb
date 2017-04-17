@@ -3,7 +3,7 @@ class AssetsController < ApplicationController
   before_action :check_logged_in_user
   before_action :set_all_assets, only: [:index]
   before_action :set_user
-  before_action :set_specific_asset, only: [:show, :edit, :update, :destroy, :get, :share_assets]
+  before_action :set_specific_asset, only: [:show, :edit, :update, :destroy, :get, :share_assets, :share_with_all_friends]
   before_action :check_file_is_mine_or_admin, except: [:get]
 
   # GET /assets
@@ -15,7 +15,7 @@ class AssetsController < ApplicationController
   # GET /assets/1.json
   def show
     # Finds all users that the asset is shared with
-    @shared_with = SharedAsset.find_shared_with(@asset)
+    @shared_with = @asset.get_shared_with_users
   end
 
   # GET /assets/new
@@ -90,6 +90,18 @@ class AssetsController < ApplicationController
     end
     if @asset
       send_file @asset.uploaded_file.path, :type => @asset.uploaded_file_content_type
+    end
+  end
+
+  def share_with_all_friends
+    begin
+      friends = @user.get_friends_usernames
+      @user.share_asset_with(@asset, friends)
+      flash[:success] = "File has been shared with all friends"
+      redirect_to user_asset_path(@user, @asset)
+    rescue Exception => e
+      flash[:danger] = "File cannot be shared: " + e.message
+      redirect_to user_asset_path(@user, @asset)
     end
   end
 

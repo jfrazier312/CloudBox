@@ -15,11 +15,10 @@
   <strong>Filename:</strong> : <%= link_to @asset.filename %>
 </p>
 
-<div class="search">
   <%= form_tag share_assets_user_asset_path(@user, @asset), controller: 'assets', method: :post do |f| %>
 
       <div class="form-group">
-        <%= label_tag :user_shared_list, "Shared With: ", class: 'col-lg-2 control-label' %>
+        <%= label_tag :user_shared_list, "Share With: ", class: 'control-label' %>
         <div class="col-lg-14">
           <%= select_tag :user_shared_list, options_for_select(User.all.map { |u| [u.username, u.username] }, @shared_with),
                          { include_blank: true, multiple: true, class: 'chosen-select' } %>
@@ -28,9 +27,11 @@
       <br>
       <br>
 
-    <%= submit_tag "Submit", class: "btn btn-success text-center", type: "submit" %>
+    <%= submit_tag "Share with Selected", class: "btn btn-primary", type: "submit" %>
+
+    <%= link_to "Share with All Friends", share_with_all_friends_user_asset_path(@user, @asset), method: :post, class:"btn btn-success" %>
+
 <% end %>
-</div>
 
 <br>
 

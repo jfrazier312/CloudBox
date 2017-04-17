@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :assets do
       member do
         post :share_assets
+        post :share_with_all_friends
       end
     end
     get "assets/get/:id" => "assets#get", :as => "download"
