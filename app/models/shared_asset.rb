@@ -1,4 +1,5 @@
 class SharedAsset < ApplicationRecord
+  includes Filterable
 
   belongs_to :asset
   belongs_to :user

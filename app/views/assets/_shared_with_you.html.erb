@@ -1,0 +1,27 @@
+<table class="table table-striped table-hover">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Filename</th>
+    <th>Description</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% if @shared_with_you_assets.nil? %>
+      No Files Shared
+  <% else %>
+      <% @shared_with_you_assets.each do |shared_asset| %>
+          <tr>
+            <td><%= shared_asset.custom_name %></td>
+            <td><%= link_to shared_asset.filename, user_download_path(@user, shared_asset) %></td>
+            <td><%= shared_asset.description %></td>
+            <td></td>
+          </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+<br>

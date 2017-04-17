@@ -1,8 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+<div class="row">
   <strong>Username: </strong>
   <%= @user.username %>
+  <% if current_user.is_friends_with?(@user) %>
+      <td><%= link_to "Remove Friend", remove_friend_user_path(@user.id), method: :delete, class: 'btn btn-primary btn-xs pull-right' %></td>
+  <% else %>
+      <td><%= link_to "Add Friend", add_friend_user_path(@user.id), method: :post, class: 'btn btn-primary btn-xs pull-right' %></td>
+  <% end %>
+</div>
+
 </p>
 
 
@@ -23,7 +31,10 @@
   <% if is_admin? || current_user?(@user)%>
       <li><a href="#assets" data-toggle="tab">Files</a></li>
       <li><a href="#sharedwithme" data-toggle="tab">Shared with Me</a></li>
-<% end %>
+  <% end%>
+  <% if !current_user?(@user) %>
+      <li><a href="#sharedwithyou" data-toggle="tab">Shared Files</a></li>
+  <% end %>
 </ul>
 
 <div id="myTabContent" class="tab-content">
@@ -32,7 +43,7 @@
     <% if @posts.size != 0 %>
         <%= render @posts %>
     <% else %>
-       <strong>No Posts Yet!</strong> <br> <br>
+        <strong>No Posts Yet!</strong> <br> <br>
     <% end %>
     <div class="text-center">
       <%= will_paginate @posts %>
@@ -48,6 +59,12 @@
     <br>
     <%= render 'assets/shared_with_me' %>
   </div>
+
+  <div class="tab-pane fade" id="sharedwithyou">
+    <br>
+    <%= render 'assets/shared_with_you' %>
+  </div>
+
 </div>
 
 
