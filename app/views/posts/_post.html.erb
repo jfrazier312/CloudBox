@@ -18,7 +18,7 @@
       <div class="caption">
         <div class="caption-content">
           <div class="user-name">
-            <%= post.user.username %>
+            <%= link_to post.user.username, user_path(post.user.id) %>
           </div>
           <%= post.caption %>
         </div>
