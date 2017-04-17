@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :add_friend]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :add_friend, :remove_friend]
   before_action :check_logged_in_user, only: [:show, :index, :edit]
   before_action :check_current_user, only: [:edit, :update]
   before_action :check_admin_user, only: [:destroy]
@@ -62,9 +62,24 @@ class UsersController < ApplicationController
   def add_friend
     begin
       current_user.add_friend(@user)
+      current_user.save!
+      flash[:success] = "Added friend: #{@user.username}"
+      redirect_to users_path
     rescue Exception => e
-      flash.now[:danger] = e.message
-      render :index
+      flash[:danger] = e.message
+      redirect_to users_path
+    end
+  end
+
+  def remove_friend
+    begin
+      current_user.remove_friend(@user)
+      current_user.save!
+      flash[:success] = "Removed friend: #{@user.username}"
+      redirect_to users_path
+    rescue Exception => e
+      flash[:danger] = e.message
+      redirect_to users_path
     end
   end
 

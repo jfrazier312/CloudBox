@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :friends
     member do
       post :add_friend
+      delete :remove_friend
     end
     resources :assets do
       member do

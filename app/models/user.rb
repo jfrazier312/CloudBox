@@ -68,6 +68,16 @@ class User < ApplicationRecord
     # raise Exception.new('Cannot be friends :(') unless friend.save!
   end
 
+  def remove_friend(user)
+    raise Exception.new("You are not friends with user") unless self.is_friends_with?(user)
+    friends = Friend.where(user_1_id: user.id, user_2_id: self.id) | Friend.where(user_1_id: self.id, user_2_id: user.id)
+    User.transaction do
+      friends.each do |friend|
+        friend.destroy!
+      end
+    end
+  end
+
   # Returns true is either one of these conditionals returns a non empty set
   def is_friends_with?(user)
     !Friend.where(user_1_id: self.id, user_2_id: user.id).empty? || !Friend.where(user_1_id: user.id, user_2_id: self.id).empty?
