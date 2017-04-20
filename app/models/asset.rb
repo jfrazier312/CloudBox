@@ -25,7 +25,7 @@ class Asset < ApplicationRecord
   validates :uploaded_file, presence: true
   validates :filename, presence: true
   validates :description, presence: true, length: { maximum: 255}
-  validates :custom_name, presence: true, length: { maximum: 30}
+  validates :custom_name, presence: true, length: { maximum: 50}
 
 
   before_validation {

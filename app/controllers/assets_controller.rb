@@ -9,13 +9,14 @@ class AssetsController < ApplicationController
   # GET /assets
   # GET /assets.json
   def index
+    set_shared_assets
   end
 
   # GET /assets/1
   # GET /assets/1.json
   def show
     # Finds all users that the asset is shared with
-    @shared_with = @asset.get_shared_with_users
+    set_shared_assets
   end
 
   # GET /assets/new
@@ -110,6 +111,11 @@ class AssetsController < ApplicationController
   def set_all_assets
     set_user
     @assets = @user.assets.paginate(page: params[:page], per_page: 10)
+  end
+
+
+  def set_shared_assets
+    @shared_assets = @user.get_all_shared_assets
   end
 
   def set_user
