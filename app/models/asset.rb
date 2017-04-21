@@ -19,7 +19,29 @@ class Asset < ApplicationRecord
                     :path => ":Rails_root/assets/:id/:basename.:extension"
   validates_attachment_size :uploaded_file, :less_than => 30.megabytes
   validates_attachment_presence :uploaded_file
-  validates_attachment :uploaded_file, content_type: { content_type: ["text/plain", "image/jpg", "image/jpeg", "image/gif", "image/png", "application/pdf", "application/msword", "video/quicktime", "audio/mpeg3", "application/java", "application/zip", "application/octet-stream", "application/x-gzip", "application/x-compressed", "text/html", "application/powerpoint", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"] }
+  validates_attachment :uploaded_file, content_type: { content_type: ["text/plain",
+                                                                      "image/jpg",
+                                                                      "image/jpeg",
+                                                                      "image/gif",
+                                                                      "image/png",
+                                                                      "application/pdf",
+                                                                      "application/vnd.ms-powerpoint",
+                                                                      "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                                                                      "application/vnd.openxmlformats-officedocument.presentationml.template",
+                                                                      "application/vnd.openxmlformats-officedocument.presentationml.slideshow",
+                                                                      "application/vnd.ms-powerpoint.presentation.macroEnabled.12",
+                                                                      "application/vnd.ms-powerpoint.presentation.macroenabled.12",
+                                                                      "application/msword",
+                                                                      "video/quicktime",
+                                                                      "audio/mpeg3",
+                                                                      "application/java",
+                                                                      "application/zip",
+                                                                      "application/octet-stream",
+                                                                      "application/x-gzip",
+                                                                      "application/x-compressed",
+                                                                      "text/html",
+                                                                      "application/powerpoint",
+                                                                      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"] }
 
 
   validates :uploaded_file, presence: true
