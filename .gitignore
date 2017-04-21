@@ -16,8 +16,11 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore for github Linguist library
+app/assets/stylesheets/* linguist-vendored
 
-# ignoring public assets..? and idea.workspace?
+
+# ignoring public assets and idea.workspace
 .idea
 /public/assets
 .idea*
